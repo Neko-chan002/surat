@@ -389,45 +389,69 @@ Dan terima kasih karena sudah berjuang sejauh ini.`,
 
   const bgAudio = document.getElementById('bg-music');
 
-  function startMusic() {
-    if (isMusicPlaying) return;
-    isMusicPlaying = true;
+  function updateMusicUI(playing) {
+    if (musicIcon) {
+      if (playing) {
+        musicIcon.className = "fas fa-compact-disc text-gold animate-spin-slow";
+      } else {
+        musicIcon.className = "fas fa-music text-gold";
+      }
+    }
+    if (musicText) {
+      musicText.textContent = playing ? "Musik: On" : "Musik: Off";
+    }
+  }
 
-    if (bgAudio) {
-      bgAudio.volume = 0.7;
-      bgAudio.play().catch(err => {
-        console.log("Autoplay waiting for user interaction", err);
+  function startMusic() {
+    if (!bgAudio) return;
+    
+    initAudioContext();
+
+    bgAudio.volume = 0.7;
+    const playPromise = bgAudio.play();
+
+    if (playPromise !== undefined) {
+      playPromise.then(() => {
+        isMusicPlaying = true;
+        updateMusicUI(true);
+      }).catch(err => {
+        console.log("Autoplay waiting for user interaction:", err);
+        isMusicPlaying = false;
+        updateMusicUI(false);
       });
     }
   }
 
   function toggleMusic() {
-    if (!isMusicPlaying) {
+    if (!bgAudio) return;
+    if (bgAudio.paused || !isMusicPlaying) {
       startMusic();
       showToast("🎶 Musik dimainkan");
     } else {
+      bgAudio.pause();
       isMusicPlaying = false;
-      if (bgAudio) {
-        bgAudio.pause();
-      }
+      updateMusicUI(false);
       showToast("🔇 Musik dihentikan");
     }
   }
 
   if (btnMusic) {
-    btnMusic.addEventListener('click', toggleMusic);
+    btnMusic.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleMusic();
+    });
   }
 
   // Auto-start music on first user interaction anywhere on the page
   const autoStartMusicOnInteraction = () => {
-    startMusic();
-    document.removeEventListener('click', autoStartMusicOnInteraction);
-    document.removeEventListener('touchstart', autoStartMusicOnInteraction);
-    document.removeEventListener('keydown', autoStartMusicOnInteraction);
+    if (!isMusicPlaying) {
+      startMusic();
+    }
   };
-  document.addEventListener('click', autoStartMusicOnInteraction);
-  document.addEventListener('touchstart', autoStartMusicOnInteraction);
-  document.addEventListener('keydown', autoStartMusicOnInteraction);
+
+  ['click', 'touchstart', 'touchend', 'keydown'].forEach(evt => {
+    document.addEventListener(evt, autoStartMusicOnInteraction, { once: true });
+  });
 
   // -------------------------------------------------------------
   // 3. REALISTIC 3D ENVELOPE EXTRACTION ANIMATION
