@@ -1,0 +1,228 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Root Color Variables & Custom Fonts Setup */
+:root {
+  --navy-dark: #050B1A;
+  --navy: #0B132B;
+  --navy-light: #1C2541;
+  --gold-light: #FCF6BA;
+  --gold: #D4AF37;
+  --gold-dark: #AA771C;
+  --bronze-dark: #2A1B12;
+  --bronze: #5C3A21;
+  --bronze-light: #8B5A2B;
+  --cream: #FAF6EE;
+}
+
+/* Page Background using the user's uploaded Vintage Moon Artwork */
+body {
+  background-image: linear-gradient(rgba(5, 11, 26, 0.45), rgba(5, 11, 26, 0.55)), url('bg-paper.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  color: #f1f5f9;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+.font-serif {
+  font-family: 'Cormorant Garamond', serif;
+}
+
+.font-script {
+  font-family: 'Great Vibes', cursive;
+}
+
+.font-title {
+  font-family: 'Cinzel', serif;
+}
+
+/* Custom Metallic Gold Gradients & Foil Effects */
+.bg-gold-metallic {
+  background: linear-gradient(135deg, #BF953F 0%, #FCF6BA 25%, #B38728 50%, #FBF5B7 75%, #AA771C 100%);
+}
+
+.border-gold-metallic {
+  border-image: linear-gradient(135deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C) 1;
+}
+
+.text-gold {
+  color: #D4AF37;
+  background: linear-gradient(135deg, #FFE89C 0%, #D4AF37 50%, #996515 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-navy {
+  color: #0B132B;
+}
+
+.text-bronze {
+  color: #5C3A21;
+}
+
+.text-bronze-dark {
+  color: #2A1B12;
+}
+
+/* Shadows & Glows */
+.shadow-gold {
+  box-shadow: 0 10px 30px -5px rgba(212, 175, 55, 0.4);
+}
+
+.shadow-gold-glow {
+  box-shadow: 0 0 25px rgba(212, 175, 55, 0.5), inset 0 0 10px rgba(255, 246, 186, 0.3);
+}
+
+.shadow-gold-lg {
+  box-shadow: 0 20px 50px rgba(212, 175, 55, 0.3), 0 0 30px rgba(11, 19, 43, 0.9);
+}
+
+/* Glassmorphism Components */
+.glass-gold {
+  background: rgba(11, 19, 43, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(212, 175, 55, 0.5);
+}
+
+.glass-bronze {
+  background: rgba(42, 27, 18, 0.88);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(139, 90, 43, 0.6);
+}
+
+.glass-card {
+  background: rgba(11, 19, 43, 0.7);
+  backdrop-filter: blur(8px);
+}
+
+/* REALISTIC 3D ENVELOPE OPENING ANIMATION */
+.perspective {
+  perspective: 1200px;
+}
+
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+
+.envelope-wrapper {
+  perspective: 1200px;
+  transform-style: preserve-3d;
+}
+
+.envelope-flap {
+  transform-origin: top;
+  backface-visibility: hidden;
+  z-index: 25;
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.envelope-wrapper.open .envelope-flap {
+  transform: rotateX(180deg);
+  z-index: 5;
+}
+
+/* Smooth unclipped letter extraction out of envelope */
+.envelope-wrapper.open #envelope-letter-peek {
+  transform: translateY(-150px) scale(1.05);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  z-index: 15;
+}
+
+.envelope-wrapper.open #wax-seal {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(1.6);
+  pointer-events: none;
+}
+
+/* WAX SEAL STYLING */
+.wax-seal {
+  filter: drop-shadow(0 10px 15px rgba(0,0,0,0.6));
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.wax-seal:hover {
+  filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.8));
+}
+
+/* VINTAGE CARD CORNER ORNAMENTS */
+.corner-ornament {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  border-top: 2px solid #D4AF37;
+  border-left: 2px solid #D4AF37;
+  pointer-events: none;
+}
+
+.corner-ornament::after {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 8px;
+  height: 8px;
+  background-color: #5C3A21;
+  border-radius: 50%;
+}
+
+/* LETTER CARD ELEVATION & SHADOW OVER MOON BG */
+.letter-card {
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.9), 0 0 40px rgba(212, 175, 55, 0.35);
+}
+
+/* ANIMATIONS */
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+  animation: spinSlow 12s linear infinite;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease forwards;
+}
+
+@keyframes floatGentle {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(1.5deg); }
+}
+
+.animate-float {
+  animation: floatGentle 4s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: floatGentle 5s ease-in-out 2s infinite;
+}
+
+/* CUSTOM SCROLLBAR */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #050B1A;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #D4AF37, #5C3A21);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #D4AF37;
+}

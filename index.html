@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Surat Spesial Kelulusan - Sarjana Psikologi (Neko-chan)</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'navy-dark': '#050B1A',
+            'navy': '#0B132B',
+            'navy-light': '#1C2541',
+            'gold-light': '#FCF6BA',
+            'gold': '#D4AF37',
+            'gold-dark': '#AA771C',
+            'bronze-dark': '#2A1B12',
+            'bronze': '#5C3A21',
+            'bronze-light': '#8B5A2B',
+            'cream': '#FAF6EE',
+          },
+          fontFamily: {
+            title: ['Cinzel', 'serif'],
+            serif: ['Cormorant Garamond', 'serif'],
+            script: ['Great Vibes', 'cursive'],
+            body: ['Plus Jakarta Sans', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Great+Vibes&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="font-body text-slate-100 overflow-x-hidden min-h-screen select-none">
+
+  <!-- Ambient Canvas Background (Golden Particles & Stars) -->
+  <canvas id="bg-canvas" class="fixed inset-0 pointer-events-none z-0"></canvas>
+
+  <!-- Background Music Audio -->
+  <audio id="bg-music" src="music.mp3" loop preload="auto"></audio>
+
+
+
+  <!-- MAIN CONTAINER -->
+  <main class="relative z-10 min-h-screen flex flex-col items-center justify-center p-4 md:p-8">
+
+    <!-- ENVELOPE SECTION (Visible on Start) -->
+    <section id="envelope-section" class="w-full max-w-md flex flex-col items-center justify-center transition-all duration-1000 my-auto pt-16 sm:pt-20 relative">
+
+      <!-- Vintage Brown & Gold Floating Badge -->
+      <div class="mb-8 text-center animate-bounce z-10">
+        <span class="inline-block px-5 py-2 rounded-full text-xs font-serif tracking-widest text-amber-100 border-2 border-gold/60 bg-gradient-to-r from-bronze-dark via-bronze to-bronze-dark shadow-gold-glow">
+          ✨ ADA SURAT SPESIAL UNTUKMU ✨
+        </span>
+      </div>
+
+      <!-- 3D Interactive Envelope Container -->
+      <div class="envelope-wrapper relative w-full max-w-[340px] sm:max-w-[400px] h-[240px] sm:h-[270px] cursor-pointer group z-10" id="envelope-card">
+        
+        <!-- Envelope Back / Interior Wall (No overflow-hidden to allow paper extraction!) -->
+        <div class="envelope-back absolute inset-0 bg-navy-dark border-2 border-gold/50 rounded-2xl shadow-2xl">
+          <div class="absolute inset-0 bg-gradient-to-b from-bronze-dark/60 via-navy-dark to-navy-dark rounded-2xl"></div>
+          
+          <!-- Inner Letter Paper Peek (Extracted out smoothly on click) -->
+          <div id="envelope-letter-peek" class="absolute inset-x-5 top-3 bottom-3 bg-gradient-to-b from-[#FAF6EE] to-[#F4EDE0] rounded-xl shadow-lg border-2 border-gold/50 transition-all duration-800 ease-out flex flex-col items-center justify-center p-5 text-center z-10">
+            <span class="font-script text-2xl sm:text-3xl text-navy font-bold">Selamat Sarjana Psikologi...</span>
+            <div class="w-16 h-0.5 bg-gradient-to-r from-transparent via-gold to-transparent my-2"></div>
+            <p class="font-serif text-xs text-amber-950 font-semibold italic">Pesan spesial dari Neko-chan...</p>
+          </div>
+        </div>
+
+        <!-- Envelope Pocket Body (Covers lower 65% of envelope) -->
+        <div class="envelope-pocket absolute bottom-0 inset-x-0 h-[65%] z-20 pointer-events-none rounded-b-2xl border-b-2 border-x-2 border-gold/60 bg-gradient-to-t from-navy-dark via-navy to-navy/95 shadow-gold"></div>
+
+        <!-- Envelope Flap Top (3D Rotates 180deg on click) -->
+        <div class="envelope-flap absolute top-0 inset-x-0 h-[50%] bg-gradient-to-b from-navy-light to-navy border-t-2 border-x-2 border-gold/60 rounded-t-2xl z-25 origin-top transition-transform duration-700 ease-in-out">
+          <div class="absolute inset-0 opacity-15 bg-[radial-gradient(#D4AF37_1px,transparent_1px)] [background-size:16px_16px]"></div>
+          <!-- Golden Triangle Flap Tip -->
+          <div class="absolute bottom-0 inset-x-0 h-0 w-0 border-x-[170px] sm:border-x-[200px] border-x-transparent border-t-[100px] sm:border-t-[115px] border-t-navy-light/95 mx-auto"></div>
+        </div>
+
+        <!-- Wax Seal (Click trigger) -->
+        <div id="wax-seal" class="wax-seal absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 active:scale-95">
+          <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-br from-gold-light via-gold to-bronze shadow-2xl flex items-center justify-center border-4 border-amber-200/60 relative overflow-hidden group-hover:shadow-gold-lg">
+            <div class="absolute inset-0 bg-radial-glow opacity-30"></div>
+            <!-- Wax Stamp Emblem -->
+            <div class="w-16 h-16 sm:w-18 sm:h-18 rounded-full border-2 border-amber-100/70 flex flex-col items-center justify-center text-amber-950 font-serif shadow-inner bg-gold-dark/20">
+              <i class="fas fa-graduation-cap text-amber-900 text-lg sm:text-xl mb-0.5"></i>
+              <span class="text-[9px] sm:text-[10px] tracking-widest font-bold uppercase">BUKA</span>
+            </div>
+          </div>
+          <div class="absolute inset-0 rounded-full border border-gold/40 animate-ping opacity-30 pointer-events-none"></div>
+        </div>
+
+      </div>
+
+      <!-- Instruction Hint -->
+      <p class="mt-8 font-serif text-xs text-amber-200 tracking-widest uppercase text-center animate-pulse drop-shadow-md z-10">
+        <i class="fas fa-hand-pointer mr-1"></i> Sentuh Segel Emas Untuk Membuka Surat
+      </p>
+
+    </section>
+
+    <!-- LETTER CONTENT SECTION (Hidden at start, revealed on Wax Seal Click) -->
+    <section id="letter-section" class="w-full max-w-3xl hidden opacity-0 transition-opacity duration-1000 py-6">
+
+      <!-- Main Luxury Paper Card -->
+      <div class="letter-card relative bg-gradient-to-b from-[#FAF6EE] via-[#F4EDE0] to-[#EBE2D0] text-slate-800 rounded-3xl p-6 sm:p-10 md:p-14 shadow-2xl border-4 border-gold-metallic overflow-hidden">
+        
+        <!-- Vintage Corner Ornaments -->
+        <div class="corner-ornament top-3 left-3"></div>
+        <div class="corner-ornament top-3 right-3 rotate-90"></div>
+        <div class="corner-ornament bottom-3 left-3 -rotate-90"></div>
+        <div class="corner-ornament bottom-3 right-3 rotate-180"></div>
+
+        <!-- Gold Foil Inner Border -->
+        <div class="absolute inset-3 border border-gold/40 rounded-2xl pointer-events-none"></div>
+        <div class="absolute inset-4 border border-bronze/20 rounded-xl pointer-events-none"></div>
+
+        <!-- Header: Receiver Greeting & Title -->
+        <div class="text-center mb-8 relative">
+          <!-- Winking Bear Decorative Header Badge -->
+          <div class="flex justify-center -mb-2">
+            <img src="images/bear-heart.png" alt="Winking Bear" class="w-20 sm:w-28 h-auto mix-blend-multiply pointer-events-none animate-float drop-shadow-sm" />
+          </div>
+
+          <h1 id="display-recipient" class="font-script text-4xl sm:text-5xl md:text-6xl text-navy font-bold my-2 drop-shadow-sm">
+            Selamat, Sarjana Psikologi!
+          </h1>
+
+          <div class="flex items-center justify-center gap-3 my-3">
+            <div class="h-[1px] w-16 bg-gradient-to-r from-transparent via-gold to-transparent"></div>
+            <i class="fas fa-crown text-gold text-sm animate-pulse"></i>
+            <div class="h-[1px] w-16 bg-gradient-to-r from-transparent via-gold to-transparent"></div>
+          </div>
+          <p id="display-date" class="font-serif text-xs italic text-bronze/80">Hari Kelulusan & Kepulangan</p>
+        </div>
+
+        <!-- Letter Body Content -->
+        <div id="display-body" class="letter-body font-serif text-base sm:text-lg leading-relaxed text-slate-800 space-y-5 text-justify sm:text-left mb-10 px-2 sm:px-6 relative z-10">
+          <!-- Text rendered dynamically from script.js -->
+        </div>
+
+        <!-- Signature Footer -->
+        <div class="mt-6 text-center border-t border-gold/30 pt-4 relative z-10">
+          <p class="font-serif text-xs uppercase tracking-widest text-bronze m-0">Terima kasih sudah berjuang sejauh ini,</p>
+          <h2 id="display-sender" class="font-script text-4xl sm:text-5xl text-navy font-bold my-1">
+            — Neko-chan
+          </h2>
+          <!-- Cute Cats Group Banner under Neko-chan Signature -->
+          <div class="mt-1 flex justify-center">
+            <img src="images/cats-group.png" alt="Group of Cute Cats" class="w-48 sm:w-72 max-w-full h-auto mix-blend-multiply opacity-95 pointer-events-none drop-shadow-sm hover:scale-105 transition-transform" />
+          </div>
+        </div>
+
+      </div>
+
+
+
+    </section>
+
+  </main>
+
+  <!-- LIVE EDITOR MODAL -->
+  <div id="editor-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-300">
+    <div class="bg-navy-dark border-2 border-gold/60 rounded-3xl w-full max-w-xl max-h-[90vh] overflow-y-auto p-6 sm:p-8 text-slate-100 shadow-gold-lg relative">
+      
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between border-b border-gold/30 pb-4 mb-6">
+        <div class="flex items-center gap-3">
+          <i class="fas fa-feather-alt text-gold text-2xl"></i>
+          <div>
+            <h3 class="font-serif font-bold text-lg text-gold">Pengaturan Surat Digital</h3>
+            <p class="text-xs text-slate-400">Ubah nama, tanggal, pesan, & pengirim</p>
+          </div>
+        </div>
+        <button id="btn-close-editor" class="w-8 h-8 rounded-full bg-gold/20 text-gold hover:bg-gold hover:text-navy flex items-center justify-center transition-colors">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <!-- Form Inputs -->
+      <form id="editor-form" class="space-y-4 text-sm font-sans">
+        <div>
+          <label class="block text-xs font-serif text-amber-200 mb-1">Judul / Penerima Surat:</label>
+          <input type="text" id="edit-recipient" class="w-full px-4 py-2 rounded-xl bg-navy border border-gold/40 text-white focus:ring-2 focus:ring-gold focus:outline-none" placeholder="Contoh: Selamat, Sarjana Psikologi!" />
+        </div>
+
+        <div>
+          <label class="block text-xs font-serif text-amber-200 mb-1">Tanggal / Momen Spesial:</label>
+          <input type="text" id="edit-date" class="w-full px-4 py-2 rounded-xl bg-navy border border-gold/40 text-white focus:ring-2 focus:ring-gold focus:outline-none" placeholder="Contoh: Hari Kelulusan & Kepulangan" />
+        </div>
+
+        <div>
+          <label class="block text-xs font-serif text-amber-200 mb-1">Isi Pesan Surat (Neko-chan):</label>
+          <textarea id="edit-body" rows="8" class="w-full px-4 py-2 rounded-xl bg-navy border border-gold/40 text-white focus:ring-2 focus:ring-gold focus:outline-none leading-relaxed" placeholder="Tuliskan pesan di sini..."></textarea>
+        </div>
+
+        <div>
+          <label class="block text-xs font-serif text-amber-200 mb-1">Nama Pengirim:</label>
+          <input type="text" id="edit-sender" class="w-full px-4 py-2 rounded-xl bg-navy border border-gold/40 text-white focus:ring-2 focus:ring-gold focus:outline-none" placeholder="Contoh: — Neko-chan" />
+        </div>
+
+        <!-- Form Actions -->
+        <div class="flex items-center justify-end gap-3 border-t border-gold/30 pt-4 mt-6">
+          <button type="button" id="btn-reset-default" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 text-xs hover:bg-slate-700">
+            Reset Default
+          </button>
+          <button type="submit" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-gold via-amber-300 to-gold text-navy-dark font-serif font-bold text-xs tracking-wider shadow-gold hover:scale-105 transition-transform">
+            Simpan Perubahan
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-navy-dark text-gold border border-gold/50 px-6 py-3 rounded-full text-xs font-serif shadow-gold-glow pointer-events-none opacity-0 transition-opacity duration-300 z-50 flex items-center gap-2">
+    <i class="fas fa-check-circle text-gold"></i>
+    <span id="toast-message">Surat berhasil diperbarui!</span>
+  </div>
+
+  <!-- JavaScript Script -->
+  <script src="script.js"></script>
+</body>
+</html>
